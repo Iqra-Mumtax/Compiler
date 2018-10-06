@@ -29,7 +29,8 @@ public class Lex {
 			if ( sourceCode.charAt(indexBegin+1) == '#' ) {			//removing multi-line comments
 				int j = sourceCode.indexOf("#", indexBegin+2);
 				sourceCodeBuffer.delete(indexBegin, j+2);
-				String str = new String (sourceCodeBuffer);					
+				String str = new String (sourceCodeBuffer);
+				sourceCode = str;
 			}
 			if (indexBegin >= 0 ) { 	//removing single-line comments
 				int j = sourceCode.indexOf("\n", indexBegin);
@@ -59,8 +60,6 @@ public class Lex {
 	}	
 	
 	public static void main(String[] args) throws Exception {
-
-		System.out.println("Hello World!");
 		
 		System.out.println(args[0] +" "+ args[1]);
 
@@ -72,14 +71,10 @@ public class Lex {
 		//if command is FOUND then read source code from file
 		//try block will run after user given correct CMD command i.e. cmm prog1.cm
 		try {
-			
 			//getting source code from user entered file name
 			String fileName = new String(args[1]);
 			fileName = fileName+".txt";	
-			
-			//String sourceCode = new String ( Files.readAllBytes (Paths.get( fileName)));	//string sourceCode stores whole source code present in file.cm
-			//StringBuffer sourceCodeBuffer = new StringBuffer(sourceCode);				
-			
+				
 			sourceCode = new String ( Files.readAllBytes (Paths.get( fileName)));	//string sourceCode stores whole source code present in file.cm
 			sourceCodeBuffer = new StringBuffer(sourceCode);
 			
@@ -90,10 +85,15 @@ public class Lex {
 			System.out.println("\nSource code after removing comments: \n\n" +sourceCode);
 			
 			//Lex doesn't catch much errors. C-- doesn't have $ sign so if there's $ in code then Lex will not compile code and show error. $ can be a part of comments so comments are removed first
-	//		boolean error = catchErrors();
-		//	if (error) {	//if there's error in the code then display error line and return
-			//	return;
-			//}		
+			boolean error = catchErrors();
+			if (error) {	//if there's error in the code then display error line and return
+				return;
+			}		
+			
+			//creating two output files
+			
+			
+			
 			
 			}finally {
 		}
